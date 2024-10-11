@@ -2,7 +2,7 @@ import styles from "@/app/page.module.scss";
 import logoImg from "/public/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { api } from "@/services/app";
+import { api } from "@/services/api";
 import { redirect } from "next/navigation";
 
 export default function Signup() {
@@ -12,6 +12,10 @@ export default function Signup() {
     const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");
+
+    if (name === "" || email === "" || password === "") {
+      return;
+    }
 
     try {
       await api.post("/users", {
